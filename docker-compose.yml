@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:
+      context: . #set the context to the current directory
+      dockerfile: Dockerfile.dev # set the dockerfile to Dockerfile.dev
+    ports: 
+      - "3000:3000" # will expose port 3000
+    volumes:
+      - /app/node_modules # will map node_modules to /app/node_modules
+      - .:/app # will map current directory to /app in container
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
